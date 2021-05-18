@@ -1,10 +1,11 @@
 // script for workday scheduler
 var workHours = [9 + " AM",10 + " AM",11 + " AM",12 + " PM",1 + " PM",2 + " PM",3 + " PM",4 + " PM",5 + " PM"];
-
+//get current date and time
 var currentDayTime = dayjs().format('dddd, MMMM D, YYYY h:mm A');
-
+//display the current day and time
 $("#currentDay").text(currentDayTime);
 
+//function to generate time blocks
 var createList = function(workHour, taskText) {
     var hourContainer = $("<li>").addClass("time-block row").attr("id", i)
     var hourBlock = $("<div>")
@@ -26,7 +27,50 @@ var createList = function(workHour, taskText) {
 
 }
 
+//Loop the function to generate multiple time blocks
 for (var i = 0; i < workHours.length; i++) {
     createList(workHours[i]);
-    console.log(workHours[i]);
 }
+
+
+function trackTime() {
+    //get the current hour
+    var currentHour = parseInt(dayjs().format('H'));
+    //test the hour
+    //var currentHour = 17;
+    //loop the function to test the hours
+    $(".time-block").each(function() {
+        //get the hours from .time-block
+        var workHour = parseInt($(this).children().text());
+        //change the time to 24h
+        if (workHour <= 5) {
+            workHour += 12;
+        }
+        //past statement
+        if (currentHour > workHour) {
+            $(this).removeClass("future")
+            .removeClass("present")
+            .addClass("past");
+        //present statement
+        } else if (currentHour === workHour) {
+            $(this).removeClass("future")
+            .removeClass("past")
+            .addClass("present");
+        //future statement
+        } else {
+            $(this).removeClass("present")
+            .removeClass("past")
+            .addClass("future");
+        }
+    })
+}
+
+//run the trackTime function when page loads
+trackTime();
+
+// run the function in set interval of 30 minutes 
+setInterval(function(){
+    trackTime();
+}, (1000*60)*30);
+
+
