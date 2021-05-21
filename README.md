@@ -4,6 +4,18 @@ Work day scheduler challenge assignment for module 5 (Third-Party APIs Challenge
 ## User Story
 User wants a daily planner to add important events and manange the time effeciently.
 
+## Languages
+- HTML
+- CSS
+- Javascript
+
+## APIs
+- Bootstrap
+- Fontawesome
+- Google Fonts
+- jQuery
+- Day.js
+
 ## Acceptance Criteria
 - A daily planner to create a schedule
 - When user open the planner then the current day is displayed at the top of the calendar
