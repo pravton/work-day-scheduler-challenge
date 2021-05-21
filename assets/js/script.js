@@ -104,6 +104,29 @@ var loadData = function() {
 
 }
 
+//add a clear button to clear the textarea and storage
+var clearAllButton = document.getElementById("clearAllButton");
+
+var clearAllfunc = clearAllButton.addEventListener("click", function() {
+    textData = [];
+
+    localStorage.setItem("textData", JSON.stringify(textData));
+
+    textData = JSON.parse(localStorage.getItem("textData"));
+
+    //assign the values to time-blocks
+    $(".time-block").each(function(){
+        var getId = $(this).attr("id");
+        for (var i = 0; i < textData.length; i++) {
+            if (getId === textData[i].id) {
+                $(this).children("textarea").text(textData[i].text);
+            }
+        }
+    }) 
+
+    document.location.replace("./");
+});
+
 //load the data when the page loads
 loadData();
 
